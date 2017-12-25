@@ -6,7 +6,6 @@ import cookie;
 import directors;
 import header;
 import saintmode;
-import softpurge;
 import tcp;
 import var;
 import vsthrottle;

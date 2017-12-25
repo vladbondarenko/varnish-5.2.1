@@ -2,7 +2,8 @@
 
 Added compiled varnish-5.2.1 + libvmod-geoip2 installed + maxmind DB
 
-Added modules: directors,header,saintmode,tcp,vsthrottle,xkey,var,cookie,softpurge,bodyaccess
+Added modules: directors,header,saintmode,tcp,vsthrottle,xkey,var,cookie,bodyaccess
+vmod_softpurge is now replaced with vmod_purge in varnish-cache (as of 5.2)
 
 vcl 4.0;
 ----------
@@ -189,36 +190,4 @@ import xkey;
         }
     }
 
-----------
-
-    vcl 4.0;
-    import softpurge;
-    
-    backend default { .host = "192.0.2.11"; .port = "8080"; }
-
-    sub vcl_recv {
-        # Return early to avoid return(pass) by builtin VCL.
-        if (req.method == "PURGE") {
-            return (hash);
-        }
-    }
-        
-    sub vcl_backend_response {
-        # Set object grace so we keep them around after TTL has expired.
-        set beresp.grace = 10m;
-    }
-        
-    sub vcl_hit {
-        if (req.method == "PURGE") {
-            softpurge.softpurge();
-            return (synth(200, "Successful softpurge"));
-        }
-    }
-
-    sub vcl_miss {
-        if (req.method == "PURGE") {
-            softpurge.softpurge();
-            return (synth(200, "Successful softpurge"));
-        }
-    }
 
