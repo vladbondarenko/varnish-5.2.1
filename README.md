@@ -1,6 +1,6 @@
 # varnish5
 
-Added compiled varnish-5.2.1 + libvmod-geoip2 installed + maxmind DB
+Added compiled varnish-5.2.1 + libvmod-geoip2 installed + maxmind DB for Amazon Linux v2
 
 Added modules: directors,header,saintmode,tcp,vsthrottle,xkey,var,cookie,bodyaccess
 vmod_softpurge is now replaced with vmod_purge in varnish-cache (as of 5.2)
